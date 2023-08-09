@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import { API } from 'aws-amplify';
 
-function UnauthedFuncs() {
+function UpdateUser() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    async function createUser() {
+    async function updateUser() {
         const apiName = 'api-service-dev';
         const path = '/v1/users';
         const myInit = {
-            headers: {},
+            headers: {
+
+            },
             body: {
                 "name": username,
                 "email": email,
-                "password": password
+                "newPassword": password
             }
         };
 
-        const response = await API.post(apiName, path, myInit);
+        const response = await API.put(apiName, path, myInit);
         console.log(response);
         return response;
     }
@@ -33,7 +35,7 @@ function UnauthedFuncs() {
     }
     async function handleUserCreation(e) {
         e.preventDefault();
-        return await createUser();
+        return await updateUser();
     }
     return (
         <div>
@@ -56,4 +58,4 @@ function UnauthedFuncs() {
     );
 }
 
-export default UnauthedFuncs;
+export default UpdateUser;

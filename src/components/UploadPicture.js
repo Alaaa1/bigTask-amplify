@@ -1,3 +1,4 @@
+import { Authenticator } from '@aws-amplify/ui-react';
 import { Storage, Auth } from 'aws-amplify';
 
 function UploadPicture() {
@@ -12,10 +13,10 @@ function UploadPicture() {
     }
 
     return (
-        <>
+        <Authenticator hideSignUp>
             <p>Please upload your profile image</p>
             <input type="file" onChange={onChange} />;
-        </>
+        </Authenticator>
     );
 }
 

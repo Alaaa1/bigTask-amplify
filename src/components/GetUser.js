@@ -10,12 +10,14 @@ function GetUser() {
     async function getData() {
         const user = await Auth.currentAuthenticatedUser();
         const sub = user.attributes.sub;
+        const username = user.username;
         console.log("user", user);
-        console.log(sub);
-        const key = `private/us-east-1:e6fc63f5-9605-4c41-9b7b-182cbcef0e71/${sub}`;
+        const credentials = await Auth.currentUserCredentials();
+        console.log("identityId", credentials.identityId);
+        const key = `private/${credentials.identityId}/${sub}`;
         const token = user.signInUserSession.idToken.jwtToken;
         const apiName = 'api-service-dev';
-        const path = '/v1/users/alaa';
+        const path = `/v1/users/${username}`;
         const myInit = {
             headers: {
                 Authorization: token

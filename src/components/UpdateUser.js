@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 
 function UpdateUser() {
     const [username, setUsername] = useState("");
@@ -7,11 +7,14 @@ function UpdateUser() {
     const [password, setPassword] = useState("");
 
     async function updateUser() {
+        const user = await Auth.currentAuthenticatedUser();
+        const token = user.signInUserSession.idToken.jwtToken;
+        const username = user.username;
         const apiName = 'api-service-dev';
-        const path = '/v1/users';
+        const path = `/v1/users/${username}`;
         const myInit = {
             headers: {
-
+                Authorization: token
             },
             body: {
                 "name": username,

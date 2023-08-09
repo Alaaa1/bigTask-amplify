@@ -16,7 +16,6 @@ function App() {
       <nav>
         <button><Link to={"/unauthed"}>Create user</Link></button>
         <button><Link to={"/authed"}>Other Operations</Link></button>
-        <button><Link to={"/authed"}>Other Operations</Link></button>d
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
